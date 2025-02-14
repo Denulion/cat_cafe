@@ -1,6 +1,8 @@
 package lt.techin.dto;
 
-public class CatAdoptionApprovalDTO {
+import lt.techin.model.CatAdoptionStatus;
+
+public record CatAdoptionApprovalDTO(CatAdoptionStatus catAdoptionStatus) {
 
 
 }

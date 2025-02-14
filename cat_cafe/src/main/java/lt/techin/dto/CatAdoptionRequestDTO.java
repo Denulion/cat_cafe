@@ -1,4 +1,9 @@
 package lt.techin.dto;
 
-public record CatAdoptionRequestDTO() {
+import jakarta.validation.constraints.NotBlank;
+import lt.techin.validation.Capitalized;
+
+public record CatAdoptionRequestDTO(@NotBlank
+                                    @Capitalized
+                                    String catName) {
 }
