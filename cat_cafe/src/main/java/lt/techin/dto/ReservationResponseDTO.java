@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import java.time.LocalDate;
 
 public record ReservationResponseDTO(long id,
-                                     UserResponseDTO userResponseDTO,
+                                     UserResponseDTO user,
                                      @Future
                                      LocalDate dateOfReservation,
                                      @NotBlank

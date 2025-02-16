@@ -7,7 +7,7 @@ import lt.techin.validation.Capitalized;
 import java.time.LocalDate;
 
 public record CatAdoptionResponseDTO(long id,
-                                     UserResponseDTO userResponseDTO,
+                                     UserResponseDTO user,
                                      @NotBlank
                                      @Capitalized
                                      String catName,

@@ -46,4 +46,8 @@ public class CatAdoptionService {
     public boolean existsCatAdoptionById(Long id) {
         return catAdoptionRepository.existsById(id);
     }
+
+    public List<CatAdoption> findByStatus(CatAdoptionStatus status) {
+        return catAdoptionRepository.findByCatAdoptionStatus(status);
+    }
 }

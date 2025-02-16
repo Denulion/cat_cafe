@@ -1,5 +1,6 @@
 package lt.techin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,9 +26,11 @@ public class User implements UserDetails {
     private List<Role> roles;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<Reservation> reservations;
 
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<CatAdoption> catAdoptions;
 
     public User(String username, String password, List<Role> roles, List<Reservation> reservations, List<CatAdoption> catAdoptions) {
