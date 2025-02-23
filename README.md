@@ -1,92 +1,113 @@
-### **Project Overview**
+# Project Overview
 
 This project is a management system for a cat cafe, allowing users to:
+
 - Register user accounts with specific roles (Admin, User).
 - Book reservations for cafe visits.
 - Apply for cat adoptions, with applications managed by admins.
 
 Admins can approve or reject adoption applications and manage user reservations.
 
-###Technologies###
--IntelliJ IDEA
--Java 21
--Maven
--Spring Boot 3.4.3
-	-Spring WEB
-	-MySQL Driver
-	-Spring Validation
-	-Spring Security
-	-Spring Data JPA
--MySQL
--Docker
--Postman
+### Technologies
+- IntelliJ IDEA  
+- Java 21  
+- Maven  
+- Spring Boot 3.4.3  
+  - Spring WEB  
+  - MySQL Driver  
+  - Spring Validation  
+  - Spring Security  
+  - Spring Data JPA  
+- MySQL  
+- Docker  
+- Postman  
 
-###Requirements###
+### Requirements
 You will need:
--Docker Desktop
--Postman
--IntelliJ IDEA
--Basic knowledge of how to use these tools
+- Docker Desktop  
+- Postman  
+- IntelliJ IDEA  
+- Basic knowledge of how to use these tools  
 
-###Installation###
-1. **Clone the repository** git clone https://github.com/Denulion/cat_cafe
+### Installation
 
-2. **Open the project** Launch IntelliJ IDEA and open the cloned project.
+1. **Clone the repository**  
+   `git clone https://github.com/Denulion/cat_cafe`
 
-3. **Enter these commands in Docker Desktop terminal to create MySQL container and interface to access it**:
-	1) docker run --name example-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d -p 3306:3306 mysql:8.0
-	2) docker run --name phpmyadmin -d --link some-mysql:db -p 8081:80 phpmyadmin
+2. **Open the project**  
+   Launch IntelliJ IDEA and open the cloned project.
 
-4. **Go to localhost:8081 (username: "root", password: "my-secret-pw") and
- use SQL code from MySQLInitCode.txt file to initialize ready-to-go database**
+3. **Create a MySQL container and interface using Docker Desktop terminal:**  
+   - `docker run --name example-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d -p 3306:3306 mysql:8.0`  
+   - `docker run --name phpmyadmin -d --link some-mysql:db -p 8081:80 phpmyadmin`  
 
-5. **Configure InteliJ IDEA if necessary**:
-	1) If dependencies didn't load automatically, import them:
-		File -> Project Structure -> Modules -> Dependencies -> Import
-	2) You may need to specify JDK version for InteliJ (you will need JDK 21):
-		File -> Project Structure -> Project -> Project SDK
+4. **Initialize the database:**  
+   Go to `localhost:8081` (username: `root`, password: `my-secret-pw`) and use SQL code from `MySQLInitCode.txt` to set up the database.
 
-###Usage###
-1. **Run the application** You can run the project from IntelliJ IDEA
- by executing the "CatCafeApplication.java" class.
+5. **Configure IntelliJ IDEA if necessary:**  
+   - If dependencies didn't load automatically, import them:  
+     `File -> Project Structure -> Modules -> Dependencies -> Import`  
+   - Specify JDK version (JDK 21 required):  
+     `File -> Project Structure -> Project -> Project SDK`  
 
-2. **Access endpoints:**
-    Once the app is running, you can use the following endpoints (for example, via Postman):
-	-POST http://localhost:8080/api/auth/register (this endpoint is public, no authentication needed,
-		USER - id 1, ADMIN - id 2):
-		{
-		"username": "catlover123",
-		"password": "securepass",
-		"roles": [
-		{"id": 1},
-		{"id": 2}]}
-    Customer endpoints (need basic auth and USER role):
-	-POST http://localhost:8080/api/reservations :
-		{
-		"dateOfReservation": "2025-03-01",
-		"timeSlot": "14:00 - 15:00",
-		"numGuests": 2
-		}
-	-GET http://localhost:8080/api/reservations - will display current user reservations
-	-POST http://localhost:8080/api/adoptions/apply :
-		{
-		"catName": "Whiskers"
-		}
-	-GET http://localhost:8080/api/adoptions - will display current user cat adoptions
-   Admin endpoints (need basic auth and ADMIN role):
-	-GET http://localhost:8080/api/adoptions/pending - will display all adoptions with status PENDING
-	-PUT http://localhost:8080/api/adoptions/{adoptionId}/approve - will approve adoption (if exists by id):
-		{
-		"status": "APPROVED"
-		}
-	-PUT http://localhost:8080/api/adoptions/{adoptionId}/reject - will reject adoption (if exists by id):
-		{
-		"status": "REJECTED"
-		}
-	-DELETE http://localhost:8080/api/reservations/{reservationId} - will cancel a reservation (if exists by id)
-	-GET http://localhost:8080/api/adoptions/approved - will show all approved adoptions
+### Usage
 
-###Credits###
-This project was developed by Andrej Titkov as part of a learning and development exercise in Java and Spring Boot.
+1. **Run the application**  
+   Execute the `CatCafeApplication.java` class from IntelliJ IDEA.
 
-Special thanks to my teacher Julius Zabulenas
+2. **Access endpoints**  
+   Once the app is running, use the following endpoints (e.g., via Postman):
+
+   - **Public Endpoint** (no authentication needed):
+     - `POST http://localhost:8080/api/auth/register`  
+       ```json
+       {
+         "username": "catlover123",
+         "password": "securepass",
+         "roles": [
+           { "id": 1 },
+           { "id": 2 }
+         ]
+       }
+       ```
+
+   - **Customer Endpoints** (require basic auth with USER role):
+     - `POST http://localhost:8080/api/reservations`  
+       ```json
+       {
+         "dateOfReservation": "2025-03-01",
+         "timeSlot": "14:00 - 15:00",
+         "numGuests": 2
+       }
+       ```
+     - `GET http://localhost:8080/api/reservations` - View user's reservations  
+     - `POST http://localhost:8080/api/adoptions/apply`  
+       ```json
+       {
+         "catName": "Whiskers"
+       }
+       ```
+     - `GET http://localhost:8080/api/adoptions` - View user's cat adoptions  
+
+   - **Admin Endpoints** (require basic auth with ADMIN role):
+     - `GET http://localhost:8080/api/adoptions/pending` - View all pending adoptions  
+     - `PUT http://localhost:8080/api/adoptions/{adoptionId}/approve`  
+       ```json
+       {
+         "status": "APPROVED"
+       }
+       ```
+     - `PUT http://localhost:8080/api/adoptions/{adoptionId}/reject`  
+       ```json
+       {
+         "status": "REJECTED"
+       }
+       ```
+     - `DELETE http://localhost:8080/api/reservations/{reservationId}` - Cancel a reservation  
+     - `GET http://localhost:8080/api/adoptions/approved` - View all approved adoptions  
+
+### Credits
+
+This project was developed by **Andrej Titkov** as part of a learning and development exercise in Java and Spring Boot.
+
+Special thanks to my teacher **Julius Zabulenas** for guidance and support.
