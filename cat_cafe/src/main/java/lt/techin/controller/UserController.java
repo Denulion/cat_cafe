@@ -32,7 +32,7 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/auth/users")
     public ResponseEntity<List<UserResponseDTO>> getUsers() {
         return ResponseEntity.ok(UserResponseMapper.toUserResponseDTOList(userService.findAllUsers()));

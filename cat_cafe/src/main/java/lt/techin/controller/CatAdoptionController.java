@@ -3,6 +3,7 @@ package lt.techin.controller;
 import jakarta.validation.Valid;
 import lt.techin.dto.*;
 import lt.techin.model.CatAdoption;
+import lt.techin.model.CatAdoptionStatus;
 import lt.techin.service.CatAdoptionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,17 +57,27 @@ public class CatAdoptionController {
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PutMapping("/{adoptionId}/approve")
-    public ResponseEntity<?> approveAdoption(@PathVariable Long adoptionId, @Valid @RequestBody CatAdoptionApprovalDTO catAdoptionApprovalDTO) {
+    @PutMapping("/{adoptionId}/{action}")
+    public ResponseEntity<?> changeAdoptionStatus(@PathVariable Long adoptionId, @PathVariable String action, @Valid @RequestBody CatAdoptionChangeStatusDTO catAdoptionChangeStatusDTO) {
         if (!catAdoptionService.existsCatAdoptionById(adoptionId)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Adoption request not found.");
         }
         CatAdoption catAdoptionFromDB = catAdoptionService.findById(adoptionId).get();
 
-        CatAdoptionApprovalMapper.updateCatAdoptionFromDTO(catAdoptionFromDB, catAdoptionApprovalDTO);
+        switch (action.toLowerCase()) {
+            case "approve":
+                catAdoptionChangeStatusDTO = new CatAdoptionChangeStatusDTO(CatAdoptionStatus.APPROVED);
+                break;
+            case "reject":
+                catAdoptionChangeStatusDTO = new CatAdoptionChangeStatusDTO(CatAdoptionStatus.REJECTED);
+                break;
+            default:
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid action. Use 'approve' or 'reject'.");
+        }
 
+        CatAdoptionChangeStatusMapper.updateCatAdoptionFromDTO(catAdoptionFromDB, catAdoptionChangeStatusDTO);
         catAdoptionService.save(catAdoptionFromDB);
 
-        return ResponseEntity.ok(CatAdoptionApprovalResponseMapper.toCatAdoptionApprovalResponseDTO(catAdoptionFromDB));
+        return ResponseEntity.ok(CatAdoptionChangeStatusResponseMapper.toCatAdoptionChangeStatusResponseDTO(catAdoptionFromDB));
     }
 }
