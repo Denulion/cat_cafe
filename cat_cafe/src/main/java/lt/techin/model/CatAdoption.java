@@ -17,7 +17,11 @@ public class CatAdoption {
     private User user;
 
     private String catName;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
     private CatAdoptionStatus catAdoptionStatus;
+
     private LocalDate applicationDate;
 
     public CatAdoption(User user, String catName, CatAdoptionStatus catAdoptionStatus, LocalDate applicationDate) {
