@@ -85,3 +85,8 @@ You will need:
 		}
 	-DELETE http://localhost:8080/api/reservations/{reservationId} - will cancel a reservation (if exists by id)
 	-GET http://localhost:8080/api/adoptions/approved - will show all approved adoptions
+
+###Credits###
+This project was developed by Andrej Titkov as part of a learning and development exercise in Java and Spring Boot.
+
+Special thanks to my teacher Julius Zabulenas
