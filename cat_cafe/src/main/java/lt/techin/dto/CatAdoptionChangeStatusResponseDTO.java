@@ -6,8 +6,8 @@ import lt.techin.validation.Capitalized;
 
 public record CatAdoptionChangeStatusResponseDTO(long id,
                                                  @NotBlank
-                                             @Capitalized
-                                             String catName,
+                                                 @Capitalized
+                                                 String catName,
                                                  CatAdoptionStatus catAdoptionStatus) {
 
 

@@ -84,3 +84,4 @@ You will need:
 		"status": "REJECTED"
 		}
 	-DELETE http://localhost:8080/api/reservations/{reservationId} - will cancel a reservation (if exists by id)
+	-GET http://localhost:8080/api/adoptions/approved - will show all approved adoptions

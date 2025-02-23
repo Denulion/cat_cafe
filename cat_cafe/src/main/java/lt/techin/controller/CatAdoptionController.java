@@ -67,6 +67,16 @@ public class CatAdoptionController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PutMapping("/adoptions/{adoptionId}/approve")
     public ResponseEntity<?> approveAdoption(@PathVariable Long adoptionId, @Valid @RequestBody CatAdoptionChangeStatusDTO catAdoptionChangeStatusDTO) {
+        return getResponseEntity(adoptionId, catAdoptionChangeStatusDTO);
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PutMapping("/adoptions/{adoptionId}/reject")
+    public ResponseEntity<?> rejectAdoption(@PathVariable Long adoptionId, @Valid @RequestBody CatAdoptionChangeStatusDTO catAdoptionChangeStatusDTO) {
+        return getResponseEntity(adoptionId, catAdoptionChangeStatusDTO);
+    }
+
+    private ResponseEntity<?> getResponseEntity(@PathVariable Long adoptionId, @Valid @RequestBody CatAdoptionChangeStatusDTO catAdoptionChangeStatusDTO) {
         if (!catAdoptionService.existsCatAdoptionById(adoptionId)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Adoption request not found.");
         }

@@ -6,6 +6,6 @@ public class CatAdoptionChangeStatusMapper {
 
 
     public static void updateCatAdoptionFromDTO(CatAdoption catAdoption, CatAdoptionChangeStatusDTO catAdoptionChangeStatusDTO) {
-        catAdoption.setCatAdoptionStatus(catAdoptionChangeStatusDTO.catAdoptionStatus());
+        catAdoption.setCatAdoptionStatus(catAdoptionChangeStatusDTO.status());
     }
 }
